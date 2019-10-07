@@ -1,6 +1,7 @@
 package com.example.projecttodo.Fragments;
 
 import android.content.Context;
+import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
 
@@ -9,8 +10,15 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
+import android.widget.ListView;
+import android.widget.Toast;
 
+import com.example.projecttodo.Database.DBHelper;
 import com.example.projecttodo.R;
+
+import java.lang.reflect.Array;
+import java.util.ArrayList;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -21,6 +29,10 @@ import com.example.projecttodo.R;
 public class LaterFragment extends Fragment {
 
     private OnFragmentInteractionListener mListener;
+    DBHelper dbHelper;
+    ArrayAdapter arrayAdapter;
+    ArrayList<String> items;
+    ListView dataList;
 
     public LaterFragment() {
         // Required empty public constructor
@@ -31,7 +43,18 @@ public class LaterFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_later, container, false);
+        final View view = inflater.inflate(R.layout.fragment_later, container, false);
+        dbHelper = new DBHelper(this);
+        items = new ArrayList<>();
+        dataList = view.findViewById(R.id.dataList);
+        loadData();
+        return view;
+    }
+
+    private void loadData() {
+        items = dbHelper.getData();
+        arrayAdapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_list_item_1, items);
+        dataList.setAdapter(arrayAdapter);
     }
 
     // TODO: Rename method, update argument and hook method into UI event
