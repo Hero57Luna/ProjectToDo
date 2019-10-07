@@ -16,6 +16,7 @@ import android.widget.Toast;
 
 import com.example.projecttodo.Database.DBHelper;
 import com.example.projecttodo.R;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.lang.reflect.Array;
 import java.util.ArrayList;
@@ -44,7 +45,7 @@ public class LaterFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         final View view = inflater.inflate(R.layout.fragment_later, container, false);
-        dbHelper = new DBHelper(this);
+        dbHelper = new DBHelper(getActivity());
         items = new ArrayList<>();
         dataList = view.findViewById(R.id.dataList);
         loadData();
@@ -53,7 +54,7 @@ public class LaterFragment extends Fragment {
 
     private void loadData() {
         items = dbHelper.getData();
-        arrayAdapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_list_item_1, items);
+        arrayAdapter = new ArrayAdapter<>(getActivity(), android.R.layout.simple_list_item_1, items);
         dataList.setAdapter(arrayAdapter);
     }
 
@@ -88,6 +89,6 @@ public class LaterFragment extends Fragment {
      */
     public interface OnFragmentInteractionListener {
         // TODO: Update argument type and name
-        void onFragmentInteraction(Uri uri);
+        void onAddTaskButtonClicked();
     }
 }

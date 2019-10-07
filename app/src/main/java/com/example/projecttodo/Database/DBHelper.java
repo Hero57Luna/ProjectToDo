@@ -20,15 +20,15 @@ public class DBHelper extends SQLiteOpenHelper {
     public static final String DATABASE_COLUMN = "id";
     public static final String DATABASE_COLUMN1 = "name";
 
-    public DBHelper(@Nullable LaterFragment context) {
+    public DBHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
     }
 
     @Override
     public void onCreate(SQLiteDatabase db) {
         String query = "CREATE TABLE " + DATABASE_TABLE + "("
-                + DATABASE_COLUMN + "INTEGER PRIMARY KEY AUTOINCREMENT,"
-                + DATABASE_COLUMN1 + "TEXT)";
+                + DATABASE_COLUMN + " INTEGER PRIMARY KEY AUTOINCREMENT,"
+                + DATABASE_COLUMN1 + " TEXT NOT NULL)";
         db.execSQL(query);
 
     }
