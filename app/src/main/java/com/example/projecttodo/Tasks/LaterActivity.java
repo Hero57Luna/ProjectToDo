@@ -39,7 +39,7 @@ public class LaterActivity extends AppCompatActivity {
     }
 
     private void ambilData() {
-        ArrayList<String> arrayList = databaseLater.getData();
+        ArrayList<String> arrayList = databaseLater.getDataLater();
         if (arrayAdapter == null) {
             arrayAdapter = new ArrayAdapter<>(this, R.layout.row_later, R.id.later_task, arrayList);
             listView.setAdapter(arrayAdapter);
@@ -75,7 +75,7 @@ public class LaterActivity extends AppCompatActivity {
                             @Override
                             public void onClick(DialogInterface dialogInterface, int i) {
                                 String catatan = String.valueOf(tambah.getText());
-                                databaseLater.insertData(catatan);
+                                databaseLater.insertDataLater(catatan);
                                 ambilData();
                             }
                         })
@@ -92,7 +92,7 @@ public class LaterActivity extends AppCompatActivity {
         TextView catatanView = view1.findViewById(R.id.later_task);
         Log.e("String", (String) catatanView.getText());
         String catatan = String.valueOf(catatanView.getText());
-        databaseLater.deleteData(catatan);
+        databaseLater.deleteDataLater(catatan);
         ambilData();
     }
 
