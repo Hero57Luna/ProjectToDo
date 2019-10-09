@@ -8,20 +8,17 @@ import android.database.sqlite.SQLiteOpenHelper;
 
 import androidx.annotation.Nullable;
 
-import com.example.projecttodo.Fragments.LaterFragment;
-
 import java.util.ArrayList;
 
-public class DBHelper extends SQLiteOpenHelper {
+public class DatabaseImportant extends SQLiteOpenHelper {
 
     public static final int DATABASE_VERSION = 1;
-    public static final String DATABASE_NAME = "project";
+    public static final String DATABASE_NAME = "project_important";
     public static final String DATABASE_TABLE = "task";
     public static final String DATABASE_COLUMN = "id";
     public static final String DATABASE_COLUMN1 = "name";
 
-    public DBHelper(Context context) {
-        super(context, DATABASE_NAME, null, DATABASE_VERSION);
+    public DatabaseImportant(Context context) { super(context, DATABASE_NAME, null, DATABASE_VERSION);
     }
 
     @Override
@@ -30,11 +27,10 @@ public class DBHelper extends SQLiteOpenHelper {
                 + DATABASE_COLUMN + " INTEGER PRIMARY KEY AUTOINCREMENT,"
                 + DATABASE_COLUMN1 + " TEXT NOT NULL)";
         db.execSQL(query);
-
     }
 
     @Override
-    public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
+    public void onUpgrade(SQLiteDatabase db, int i, int i1) {
         String query = "DROP TABLE IF EXISTS " + DATABASE_TABLE;
         db.execSQL(query);
         onCreate(db);
@@ -65,5 +61,12 @@ public class DBHelper extends SQLiteOpenHelper {
         cursor.close();
         db.close();
         return dataList;
+    }
+
+    public void updateData(String data) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues values = new ContentValues();
+        values.put(DATABASE_COLUMN1, data);
+        db.update(DATABASE_TABLE, values, DATABASE_COLUMN1 + " = ?", new String[]{data});
     }
 }
