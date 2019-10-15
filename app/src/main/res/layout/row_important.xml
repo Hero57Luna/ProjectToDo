@@ -18,13 +18,8 @@
         android:id="@+id/later_task"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="TextView" />
+        android:text="TextView"
+        android:textSize="18sp"
+        app:fontFamily="sans-serif-black" />
 
-    <Button
-        android:id="@+id/button_edit"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_toLeftOf="@id/button_done"
-        android:onClick="editData"
-        android:text="edit" />
 </RelativeLayout>

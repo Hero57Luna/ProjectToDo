@@ -16,14 +16,14 @@ import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
 
-import com.example.projecttodo.Database.DatabaseLater;
+import com.example.projecttodo.Database.DatabaseHelper;
 import com.example.projecttodo.R;
 
 import java.util.ArrayList;
 
 public class LaterActivity extends AppCompatActivity {
 
-    DatabaseLater databaseLater;
+    DatabaseHelper databaseHelper;
     ListView listView;
     ArrayAdapter<String> arrayAdapter;
 
@@ -33,13 +33,13 @@ public class LaterActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_later);
 
-        databaseLater = new DatabaseLater(this);
+        databaseHelper = new DatabaseHelper(this);
         listView = findViewById(R.id.listLater);
         ambilData();
     }
 
     private void ambilData() {
-        ArrayList<String> arrayList = databaseLater.getDataLater();
+        ArrayList<String> arrayList = databaseHelper.getDataLater();
         if (arrayAdapter == null) {
             arrayAdapter = new ArrayAdapter<>(this, R.layout.row_later, R.id.later_task, arrayList);
             listView.setAdapter(arrayAdapter);
@@ -75,7 +75,7 @@ public class LaterActivity extends AppCompatActivity {
                             @Override
                             public void onClick(DialogInterface dialogInterface, int i) {
                                 String catatan = String.valueOf(tambah.getText());
-                                databaseLater.insertDataLater(catatan);
+                                databaseHelper.insertDataLater(catatan);
                                 ambilData();
                             }
                         })
@@ -92,7 +92,7 @@ public class LaterActivity extends AppCompatActivity {
         TextView catatanView = view1.findViewById(R.id.later_task);
         Log.e("String", (String) catatanView.getText());
         String catatan = String.valueOf(catatanView.getText());
-        databaseLater.deleteDataLater(catatan);
+        databaseHelper.deleteDataLater(catatan);
         ambilData();
     }
 
@@ -106,7 +106,7 @@ public class LaterActivity extends AppCompatActivity {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
                         String catat = (editText.getText().toString());
-                        databaseLater.updateData(catat);
+                        databaseHelper.updateData(catat);
                         ambilData();
                     }
                 })

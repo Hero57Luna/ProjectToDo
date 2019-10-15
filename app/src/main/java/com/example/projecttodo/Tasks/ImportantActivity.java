@@ -4,7 +4,6 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.DialogInterface;
-import android.graphics.PorterDuff;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.view.Menu;
@@ -14,15 +13,14 @@ import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ListView;
 
-import com.example.projecttodo.Database.DatabaseImportant;
-import com.example.projecttodo.Database.DatabaseLater;
+import com.example.projecttodo.Database.DatabaseHelper;
 import com.example.projecttodo.R;
 
 import java.util.ArrayList;
 
 public class ImportantActivity extends AppCompatActivity {
 
-    DatabaseLater databaseLater;
+    DatabaseHelper databaseHelper;
     ListView listView;
     ArrayAdapter<String> arrayAdapter;
 
@@ -31,13 +29,13 @@ public class ImportantActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_important);
 
-        databaseLater = new DatabaseLater(this);
+        databaseHelper = new DatabaseHelper(this);
         listView = findViewById(R.id.listImportant);
         ambilData();
     }
 
     private void ambilData() {
-        ArrayList<String> arrayList = databaseLater.getDataImportant();
+        ArrayList<String> arrayList = databaseHelper.getDataImportant();
         if (arrayAdapter == null) {
             arrayAdapter = new ArrayAdapter<>(this, R.layout.row_important, R.id.later_task, arrayList);
             listView.setAdapter(arrayAdapter);
@@ -54,7 +52,7 @@ public class ImportantActivity extends AppCompatActivity {
         getMenuInflater().inflate(R.menu.menu2, menu);
         Drawable icon = menu.getItem(0).getIcon();
         icon.mutate();
-        icon.setColorFilter(getResources().getColor(android.R.color.white), PorterDuff.Mode.SRC_IN);
+       // icon.setColorFilter(getResources().getColor(android.R.color.white), PorterDuff.Mode.SRC_IN);
         return super.onCreateOptionsMenu(menu);
     }
 
@@ -71,7 +69,7 @@ public class ImportantActivity extends AppCompatActivity {
                             @Override
                             public void onClick(DialogInterface dialogInterface, int i) {
                                 String catatan = String.valueOf(tambah.getText());
-                                databaseLater.insertDataImportant(catatan);
+                                databaseHelper.insertDataImportant(catatan);
                                 ambilData();
                             }
                         })
